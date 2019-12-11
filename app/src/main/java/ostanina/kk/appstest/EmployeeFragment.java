@@ -14,6 +14,7 @@ import ostanina.kk.appstest.utils.Utils;
 import ostanina.kk.appstest.viewmodels.EmployeeViewModel;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.List;
 
 
 public class EmployeeFragment extends Fragment {
+
     private static final String ARG_EMPLOYEE_ID = "ARG_EMPLOYEE_ID";
     private int employeeId;
     private EmployeeViewModel employeeViewModel;
@@ -58,22 +60,21 @@ public class EmployeeFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        employeeViewModel = ViewModelProviders.of(this).get(EmployeeViewModel.class);
-        subscribeObservers();
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         lastNameTextView = view.findViewById(R.id.text_view_employee_last_name);
         firstNameTextView = view.findViewById(R.id.text_view_employee_first_name);
         birthdayTextView = view.findViewById(R.id.text_view_employee_birthday);
         ageTextView = view.findViewById(R.id.text_view_employee_age);
         specialtyTextView = view.findViewById(R.id.text_view_employee_specialty);
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        employeeViewModel = ViewModelProviders.of(this).get(EmployeeViewModel.class);
+        subscribeObservers();
     }
 
     private void subscribeObservers() {

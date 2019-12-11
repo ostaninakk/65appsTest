@@ -48,6 +48,17 @@ public class SpecialtyListFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Callbacks) {
+            listener = (Callbacks) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement Callbacks interface");
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -77,18 +88,6 @@ public class SpecialtyListFragment extends Fragment {
 
         specialtyListViewModel = ViewModelProviders.of(this).get(SpecialtyListViewModel.class);
         subscribeObservers();
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof Callbacks) {
-            listener = (Callbacks) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement Callbacks interface");
-        }
     }
 
     @Override

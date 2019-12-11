@@ -17,6 +17,7 @@ import ostanina.kk.appstest.model.Employee;
 import ostanina.kk.appstest.model.Specialty;
 import ostanina.kk.appstest.viewmodels.EmployeeListViewModel;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,17 @@ public class EmployeeListFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof EmployeeListFragment.Callbacks) {
+            listener = (EmployeeListFragment.Callbacks) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement Callbacks interface");
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -80,17 +92,6 @@ public class EmployeeListFragment extends Fragment {
 
         employeeListViewModel = ViewModelProviders.of(this).get(EmployeeListViewModel.class);
         subscribeObservers();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof EmployeeListFragment.Callbacks) {
-            listener = (EmployeeListFragment.Callbacks) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement Callbacks interface");
-        }
     }
 
     @Override
