@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">65appsTest</string>
+    <string name="retry">Retry</string>
+    <string name="error_retrieving_data">Error retrieving data. Please try again.</string>
+    <plurals name="plurals_years">
+        <item quantity="zero">year</item>
+        <item quantity="one">%1$d year</item>
+        <item quantity="two">%1$d years</item>
+        <item quantity="few">%1$d years</item>
+        <item quantity="many">%1$d years</item>
+        <item quantity="other">%1$d years</item>
+    </plurals>
+</resources>
