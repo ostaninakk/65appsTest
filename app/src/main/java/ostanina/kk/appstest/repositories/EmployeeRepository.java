@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import ostanina.kk.appstest.database.EmployeeDao;
 import ostanina.kk.appstest.database.EmployeeDatabase;
+import ostanina.kk.appstest.database.InsertEmployeeSpecialtyDao;
 import ostanina.kk.appstest.database.EmployeeSpecialtyCrossRef;
 import ostanina.kk.appstest.database.EmployeeSpecialtyDao;
 import ostanina.kk.appstest.database.SpecialtyDao;
@@ -32,6 +33,7 @@ public class EmployeeRepository {
     private EmployeeDao employeeDao;
     private SpecialtyDao specialtyDao;
     private EmployeeSpecialtyDao employeeSpecialtyDao;
+    private InsertEmployeeSpecialtyDao insertEmployeeSpecialtyDao;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
     private MutableLiveData<Boolean> errorRequest = new MutableLiveData<>();
 
@@ -40,6 +42,7 @@ public class EmployeeRepository {
         employeeDao = database.employeeDao();
         specialtyDao = database.specialtyDao();
         employeeSpecialtyDao = database.employeeSpecialtyCrossRefDao();
+        insertEmployeeSpecialtyDao = database.insertEmployeeSpecialtyDao();
 
         // Загрузить данные по работникам по сети
         loadData();
@@ -109,14 +112,14 @@ public class EmployeeRepository {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                // Очистить данные в базе
-                deleteAllData();
 
                 if (employees != null) {
                     /* Отдельно получить массив Работников, массив Специальностей
                      * и массив связей работника и специальности. Полученнные данные
                      * вставить в локальную базу
                      */
+
+
                     SparseArray<Specialty> specialtiesSparseArray = new SparseArray<>();
                     List<EmployeeSpecialtyCrossRef> employeeSpecialtyCrossRef = new ArrayList<>();
                     int index = 0;
@@ -133,19 +136,16 @@ public class EmployeeRepository {
                     }
                     List<Specialty> specialties = Utils.asList(specialtiesSparseArray);
 
-                    employeeDao.insertEmployees(employees);
-                    specialtyDao.insertSpecialties(specialties);
-                    employeeSpecialtyDao.insertAllEmployeeSpecialtyCrossRef(employeeSpecialtyCrossRef);
+                    // Очистить базу и вставить все данные
+                    insertEmployeeSpecialtyDao.deleteAndInsertInTransaction(
+                            specialties,
+                            employees,
+                            employeeSpecialtyCrossRef);
+
                 }
             }
+
         });
-    }
-
-
-    private void deleteAllData() {
-        employeeSpecialtyDao.deleteAllEmployeeSpecialtyCrossRef();
-        employeeDao.deleteAllEmployees();
-        specialtyDao.deleteAllSpecialties();
     }
 
 

@@ -29,4 +29,5 @@ public abstract class EmployeeDatabase extends RoomDatabase {
     public abstract EmployeeDao employeeDao();
     public abstract SpecialtyDao specialtyDao();
     public abstract EmployeeSpecialtyDao employeeSpecialtyCrossRefDao();
+    public abstract InsertEmployeeSpecialtyDao insertEmployeeSpecialtyDao();
 }

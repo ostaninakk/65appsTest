@@ -4,19 +4,12 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Insert;
 import androidx.room.Query;
 import ostanina.kk.appstest.model.Employee;
 import ostanina.kk.appstest.model.Specialty;
 
 @Dao
 public interface EmployeeSpecialtyDao {
-    @Insert
-    void insertAllEmployeeSpecialtyCrossRef(List<EmployeeSpecialtyCrossRef> items);
-
-    @Query("DELETE FROM employee_specialty_cross_ref")
-    void deleteAllEmployeeSpecialtyCrossRef();
-
     @Query("SELECT employees.* FROM employees JOIN employee_specialty_cross_ref " +
             "ON employees.id = employee_specialty_cross_ref.employeeId " +
             "WHERE employee_specialty_cross_ref.specialtyId = :specialtyId")
