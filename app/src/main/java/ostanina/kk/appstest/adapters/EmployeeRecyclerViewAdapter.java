@@ -35,7 +35,27 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
 
     @Override
     public void onBindViewHolder(@NonNull EmployeeViewHolder holder, int position) {
-        holder.bind(employees.get(position));
+        final Employee employee = employees.get(position);
+
+        String firstName = Utils.firstUpperCaseInWord(employee.getFirstName());
+        String lastName = Utils.firstUpperCaseInWord(employee.getLastName());
+        String name = firstName + " " + lastName;
+        holder.employeeNameTextView.setText(name);
+        // calculate age and add "year/years"
+        String birthdayStr = employee.getBirthday();
+        Date birthday = Utils.getDateFromString(birthdayStr);
+        if (birthday != null) {
+            int age = Utils.calculateAge(birthday);
+            String ageWithYearText = context.getResources().getQuantityString(R.plurals.plurals_years, age, age);
+            holder.employeeAgeTextView.setText(ageWithYearText);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callbacks.onEmployeeSelected(employee);
+            }
+        });
     }
 
     @Override
@@ -51,38 +71,15 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         notifyDataSetChanged();
     }
 
-    public class EmployeeViewHolder extends RecyclerView.ViewHolder {
+    static class EmployeeViewHolder extends RecyclerView.ViewHolder {
         TextView employeeNameTextView;
         TextView employeeAgeTextView;
-        Employee employee;
 
 
-        public EmployeeViewHolder(@NonNull View itemView) {
+        EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
             employeeNameTextView = itemView.findViewById(R.id.text_view_employee_name);
             employeeAgeTextView = itemView.findViewById(R.id.text_view_employee_age);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    callbacks.onEmployeeSelected(employee);
-                }
-            });
-        }
-
-        public void bind(Employee employee) {
-            this.employee = employee;
-            String firstName = Utils.firstUpperCaseInWord(employee.getFirstName());
-            String lastName = Utils.firstUpperCaseInWord(employee.getLastName());
-            String name = firstName + " " + lastName;
-            employeeNameTextView.setText(name);
-            // calculate age and add "year/years"
-            String birthdayStr = employee.getBirthday();
-            Date birthday = Utils.getDateFromString(birthdayStr);
-            if (birthday != null) {
-                int age = Utils.calculateAge(birthday);
-                String ageWithYearText = context.getResources().getQuantityString(R.plurals.plurals_years, age, age);
-                employeeAgeTextView.setText(ageWithYearText);
-            }
         }
     }
 }

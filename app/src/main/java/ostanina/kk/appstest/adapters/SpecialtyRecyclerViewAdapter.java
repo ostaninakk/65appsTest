@@ -34,7 +34,14 @@ public class SpecialtyRecyclerViewAdapter extends RecyclerView.Adapter<Specialty
 
     @Override
     public void onBindViewHolder(@NonNull SpecialtyViewHolder holder, int position) {
-        holder.bind(specialties.get(position));
+        final Specialty specialty = specialties.get(position);
+        holder.specialtyNameTextView.setText(specialty.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callbacks.onSpecialtySelected(specialty);
+            }
+        });
     }
 
     @Override
@@ -50,25 +57,12 @@ public class SpecialtyRecyclerViewAdapter extends RecyclerView.Adapter<Specialty
         notifyDataSetChanged();
     }
 
-    public class SpecialtyViewHolder extends RecyclerView.ViewHolder {
+    static class SpecialtyViewHolder extends RecyclerView.ViewHolder {
         TextView specialtyNameTextView;
-        Specialty specialty;
 
-        public SpecialtyViewHolder(@NonNull View itemView) {
+        SpecialtyViewHolder(@NonNull View itemView) {
             super(itemView);
             specialtyNameTextView = itemView.findViewById(R.id.text_view_specialty_name);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    callbacks.onSpecialtySelected(specialty);
-                }
-            });
-        }
-
-        public void bind(Specialty specialty) {
-            this.specialty = specialty;
-            specialtyNameTextView.setText(specialty.getName());
         }
     }
 }
