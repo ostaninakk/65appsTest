@@ -105,7 +105,7 @@ public class SpecialtyListFragment extends Fragment {
         });
 
 
-        specialtyListViewModel.checkError().observe(this, new Observer<Boolean>() {
+        specialtyListViewModel.checkError().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean b) {
                 if (b) {

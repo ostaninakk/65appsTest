@@ -78,14 +78,14 @@ public class EmployeeFragment extends Fragment {
     }
 
     private void subscribeObservers() {
-        employeeViewModel.getEmployee(employeeId).observe(this, new Observer<Employee>() {
+        employeeViewModel.getEmployee(employeeId).observe(getViewLifecycleOwner(), new Observer<Employee>() {
             @Override
             public void onChanged(Employee employee) {
                 updateUI(employee, null);
             }
         });
 
-        employeeViewModel.getSpecialtiesForEmployee(employeeId).observe(this, new Observer<List<Specialty>>() {
+        employeeViewModel.getSpecialtiesForEmployee(employeeId).observe(getViewLifecycleOwner(), new Observer<List<Specialty>>() {
             @Override
             public void onChanged(List<Specialty> specialties) {
                 updateUI(null, specialties);
@@ -118,6 +118,5 @@ public class EmployeeFragment extends Fragment {
             String specialtiesString = TextUtils.join(", ", specialties);
             specialtyTextView.setText(specialtiesString);
         }
-
     }
 }

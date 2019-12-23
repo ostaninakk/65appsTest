@@ -103,7 +103,7 @@ public class EmployeeListFragment extends Fragment {
 
     private void subscribeObservers() {
         employeeListViewModel.getEmployeesForSpecialty(specialtyId)
-                .observe(this, new Observer<List<Employee>>() {
+                .observe(getViewLifecycleOwner(), new Observer<List<Employee>>() {
             @Override
             public void onChanged(List<Employee> employees) {
                 adapter.setEmployees(employees);
