@@ -1,16 +1,15 @@
 package ostanina.kk.appstest.ui.Command;
 
-import androidx.appcompat.app.AppCompatActivity;
+import ostanina.kk.appstest.MainActivity;
 import ostanina.kk.appstest.R;
 import ostanina.kk.appstest.model.Employee;
-import ostanina.kk.appstest.ui.Command.Command;
 import ostanina.kk.appstest.ui.EmployeeFragment;
 
 public class EmployeeSelectedCommand extends Command {
-    private AppCompatActivity activity;
+    private MainActivity activity;
     private Employee employee;
 
-    public EmployeeSelectedCommand(AppCompatActivity activity, Employee employee) {
+    public EmployeeSelectedCommand(MainActivity activity, Employee employee) {
         this.activity = activity;
         this.employee = employee;
     }

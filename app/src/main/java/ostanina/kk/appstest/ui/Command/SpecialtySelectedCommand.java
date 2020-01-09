@@ -1,15 +1,15 @@
 package ostanina.kk.appstest.ui.Command;
 
-import androidx.appcompat.app.AppCompatActivity;
+import ostanina.kk.appstest.MainActivity;
 import ostanina.kk.appstest.R;
 import ostanina.kk.appstest.model.Specialty;
 import ostanina.kk.appstest.ui.EmployeeListFragment;
 
 public class SpecialtySelectedCommand extends Command {
-    private AppCompatActivity activity;
+    private MainActivity activity;
     private Specialty specialty;
 
-    public SpecialtySelectedCommand(AppCompatActivity activity, Specialty specialty) {
+    public SpecialtySelectedCommand(MainActivity activity, Specialty specialty) {
         this.activity = activity;
         this.specialty = specialty;
     }
