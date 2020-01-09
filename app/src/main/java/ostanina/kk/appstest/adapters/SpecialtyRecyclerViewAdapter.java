@@ -11,7 +11,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ostanina.kk.appstest.R;
-import ostanina.kk.appstest.SpecialtyListFragment;
+import ostanina.kk.appstest.ui.SpecialtyListFragment;
 import ostanina.kk.appstest.model.Specialty;
 
 public class SpecialtyRecyclerViewAdapter extends RecyclerView.Adapter<SpecialtyRecyclerViewAdapter.SpecialtyViewHolder> {

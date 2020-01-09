@@ -1,4 +1,4 @@
-package ostanina.kk.appstest;
+package ostanina.kk.appstest.ui;
 
 
 import android.content.Context;
@@ -12,12 +12,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ostanina.kk.appstest.R;
 import ostanina.kk.appstest.adapters.EmployeeRecyclerViewAdapter;
 import ostanina.kk.appstest.model.Employee;
 import ostanina.kk.appstest.model.Specialty;
 import ostanina.kk.appstest.viewmodels.EmployeeListViewModel;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

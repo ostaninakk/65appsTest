@@ -1,4 +1,4 @@
-package ostanina.kk.appstest;
+package ostanina.kk.appstest.ui;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,6 +22,7 @@ import java.util.List;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ostanina.kk.appstest.R;
 import ostanina.kk.appstest.adapters.SpecialtyRecyclerViewAdapter;
 import ostanina.kk.appstest.model.Specialty;
 import ostanina.kk.appstest.viewmodels.SpecialtyListViewModel;

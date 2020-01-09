@@ -1,4 +1,4 @@
-package ostanina.kk.appstest;
+package ostanina.kk.appstest.ui;
 
 
 import android.os.Bundle;
@@ -8,13 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import ostanina.kk.appstest.R;
 import ostanina.kk.appstest.model.Employee;
 import ostanina.kk.appstest.model.Specialty;
 import ostanina.kk.appstest.utils.Utils;
 import ostanina.kk.appstest.viewmodels.EmployeeViewModel;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

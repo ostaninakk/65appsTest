@@ -11,7 +11,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import ostanina.kk.appstest.EmployeeListFragment;
+import ostanina.kk.appstest.ui.EmployeeListFragment;
 import ostanina.kk.appstest.R;
 import ostanina.kk.appstest.model.Employee;
 import ostanina.kk.appstest.utils.Utils;
