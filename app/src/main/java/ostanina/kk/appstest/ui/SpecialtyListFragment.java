@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +18,28 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.android.support.DaggerFragment;
 import ostanina.kk.appstest.R;
-import ostanina.kk.appstest.adapters.SpecialtyRecyclerViewAdapter;
-import ostanina.kk.appstest.model.Specialty;
-import ostanina.kk.appstest.viewmodels.SpecialtyListViewModel;
+import ostanina.kk.appstest.ui.adapters.SpecialtyRecyclerViewAdapter;
+import ostanina.kk.appstest.factory.ViewModelFactory;
+import ostanina.kk.appstest.data.model.Specialty;
+import ostanina.kk.appstest.ui.viewmodels.SpecialtyListViewModel;
 
-public class SpecialtyListFragment extends Fragment {
+public class SpecialtyListFragment extends DaggerFragment {
     /**
      *Required interface for hosting activities
      */
     public interface Callbacks {
         void onSpecialtySelected(Specialty specialty);
     }
+
+    @Inject
+    ViewModelFactory viewModelFactory;
 
     private SpecialtyListViewModel specialtyListViewModel;
     private RecyclerView recyclerView;
@@ -87,7 +93,8 @@ public class SpecialtyListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        specialtyListViewModel = ViewModelProviders.of(this).get(SpecialtyListViewModel.class);
+        specialtyListViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(SpecialtyListViewModel.class);
         subscribeObservers();
     }
 

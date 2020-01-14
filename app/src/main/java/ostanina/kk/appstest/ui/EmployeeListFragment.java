@@ -6,17 +6,18 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.android.support.DaggerFragment;
 import ostanina.kk.appstest.R;
-import ostanina.kk.appstest.adapters.EmployeeRecyclerViewAdapter;
-import ostanina.kk.appstest.model.Employee;
-import ostanina.kk.appstest.model.Specialty;
-import ostanina.kk.appstest.viewmodels.EmployeeListViewModel;
+import ostanina.kk.appstest.ui.adapters.EmployeeRecyclerViewAdapter;
+import ostanina.kk.appstest.factory.ViewModelFactory;
+import ostanina.kk.appstest.data.model.Employee;
+import ostanina.kk.appstest.data.model.Specialty;
+import ostanina.kk.appstest.ui.viewmodels.EmployeeListViewModel;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import javax.inject.Inject;
 
-public class EmployeeListFragment extends Fragment {
+
+public class EmployeeListFragment extends DaggerFragment {
     /**
      *Required interface for hosting activities
      */
@@ -34,6 +37,9 @@ public class EmployeeListFragment extends Fragment {
     }
 
     private final static String ARG_SPECIALTY_ID = "ARG_SPECIALTY_ID";
+
+    @Inject
+    ViewModelFactory viewModelFactory;
 
     private int specialtyId;
     private EmployeeListViewModel employeeListViewModel;
@@ -90,7 +96,8 @@ public class EmployeeListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        employeeListViewModel = ViewModelProviders.of(this).get(EmployeeListViewModel.class);
+        employeeListViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(EmployeeListViewModel.class);
         subscribeObservers();
     }
 

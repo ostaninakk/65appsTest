@@ -5,14 +5,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import dagger.android.support.DaggerFragment;
 import ostanina.kk.appstest.R;
-import ostanina.kk.appstest.model.Employee;
-import ostanina.kk.appstest.model.Specialty;
+import ostanina.kk.appstest.factory.ViewModelFactory;
+import ostanina.kk.appstest.data.model.Employee;
+import ostanina.kk.appstest.data.model.Specialty;
 import ostanina.kk.appstest.utils.Utils;
-import ostanina.kk.appstest.viewmodels.EmployeeViewModel;
+import ostanina.kk.appstest.ui.viewmodels.EmployeeViewModel;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,10 +24,16 @@ import android.widget.TextView;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 
-public class EmployeeFragment extends Fragment {
+
+public class EmployeeFragment extends DaggerFragment {
 
     private static final String ARG_EMPLOYEE_ID = "ARG_EMPLOYEE_ID";
+
+    @Inject
+    ViewModelFactory viewModelFactory;
+
     private int employeeId;
     private EmployeeViewModel employeeViewModel;
     private TextView firstNameTextView;
@@ -73,7 +80,7 @@ public class EmployeeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        employeeViewModel = ViewModelProviders.of(this).get(EmployeeViewModel.class);
+        employeeViewModel = ViewModelProviders.of(this, viewModelFactory).get(EmployeeViewModel.class);
         subscribeObservers();
     }
 
